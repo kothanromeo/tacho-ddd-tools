@@ -42,7 +42,9 @@ const websiteSchema = {
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="author" content={SITE.author} />
     <meta name="theme-color" content="#0b5c8c" />
+    <link rel="icon" href={href('/favicon.ico')} sizes="48x48" />
     <link rel="icon" href={href('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={href('/apple-touch-icon.png')} />
     <link rel="sitemap" href={href('/sitemap-index.xml')} />
     <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — guides`} href={href('/rss.xml')} />
 
@@ -102,6 +104,7 @@ const websiteSchema = {
           <h2>Outils</h2>
           <ul>
             <li><a href={href('/')}>Lire un fichier DDD de carte conducteur</a></li>
+            <li><a href={href('/lire-fichier-ddd-vehicule/')}>Lire un fichier DDD de véhicule</a></li>
             <li><a href={href('/calcul-temps-de-conduite/')}>Calculer son temps de conduite restant</a></li>
           </ul>
           <h2 style="margin-top:1.2rem">Du même auteur</h2>
@@ -113,6 +116,7 @@ const websiteSchema = {
           <h2>Guides</h2>
           <ul>
             <li><a href={href('/guides/lire-fichier-ddd-carte-conducteur/')}>Le fichier DDD de la carte conducteur</a></li>
+            <li><a href={href('/guides/fichier-ddd-vehicule-unite-embarquee/')}>Le fichier DDD du véhicule</a></li>
             <li><a href={href('/guides/temps-de-conduite-repos-reglementation/')}>Temps de conduite et de repos : les règles</a></li>
             <li><a href={href('/guides/telechargement-carte-conducteur-28-jours/')}>Télécharger la carte tous les 28 jours</a></li>
             <li><a href={href('/guides/chronotachygraphe-intelligent-v2/')}>Chronotachygraphe intelligent V2 : le calendrier</a></li>

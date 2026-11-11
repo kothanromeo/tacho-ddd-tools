@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+import VuReader from '../../components/VuReader.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Faq from '../../components/Faq.astro';
+import ToolCards from '../../components/ToolCards.astro';
+import { breadcrumbSchema, faqSchema, href, toolSchema, type FaqItem } from '../../site';
+
+const site = Astro.site!;
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Lire un fichier DDD de véhicule', path: '/lire-fichier-ddd-vehicule/' },
+];
+const faq: FaqItem[] = [
+  {
+    q: 'Comment savoir si mon fichier vient du véhicule ou d’une carte ?',
+    a: '<p>Les deux ont souvent l’extension .DDD. Le nom donné par le logiciel aide (souvent « M_ » ou « V_ » pour le véhicule, « C_ » pour une carte), mais le plus simple est de déposer le fichier : l’outil reconnaît sa nature et vous renvoie au bon lecteur si besoin.</p>',
+  },
+  {
+    q: 'Qu’est-ce que la conduite sans carte ?',
+    a: '<p>Ce sont les périodes où le véhicule a roulé alors qu’aucune carte conducteur n’était insérée dans la fente du conducteur. Elles doivent être justifiées (déplacement à l’atelier, manœuvre sur site, saisie manuelle ou impression du conducteur). C’est l’un des premiers points examinés lors d’un contrôle en entreprise.</p>',
+  },
+  {
+    q: 'Pourquoi la vitesse détaillée ne couvre-t-elle qu’une journée ?',
+    a: '<p>Le chronotachygraphe ne garde la vitesse seconde par seconde que pour les dernières 24 heures de conduite. Pour les périodes plus anciennes, seuls les excès de vitesse sont conservés.</p>',
+  },
+  {
+    q: 'Les fichiers des appareils intelligents sont-ils lus ?',
+    a: '<p>Oui : appareils numériques de première génération et chronotachygraphes intelligents (V1 et V2). Les signatures numériques sont détectées mais pas vérifiées.</p>',
+  },
+];
+---
+<Base
+  title="Lire un fichier DDD de véhicule (chronotachygraphe) en ligne"
+  description="Ouvrez le téléchargement d’un chronotachygraphe : conducteurs, conduite sans carte, excès de vitesse, vitesse détaillée, étalonnages, export Excel. Gratuit, sans installation."
+  keywords={["fichier ddd véhicule", "lire fichier ddd camion", "téléchargement chronotachygraphe", "lecture mémoire chronotachygraphe", "unité embarquée tachygraphe", "conduite sans carte", "excès de vitesse chronotachygraphe", "vitesse détaillée tachygraphe", "étalonnage chronotachygraphe", "fichier v1b", "logiciel lecture chronotachygraphe gratuit", "analyse véhicule tachygraphe"]}
+  schema={[toolSchema(site, { name: 'Lecteur de fichiers DDD de véhicule', path: '/lire-fichier-ddd-vehicule/', description: 'Lit le téléchargement de la mémoire d’un chronotachygraphe (unité embarquée).' }), breadcrumbSchema(site, crumbs), faqSchema(faq)]}
+>
+  <Crumbs items={crumbs} />
+  <section class="hero wrap">
+    <h1>Lire un fichier DDD de véhicule</h1>
+    <p class="lead">Déposez le téléchargement de la mémoire du chronotachygraphe : qui a conduit le camion, la conduite sans carte, les excès de vitesse, la vitesse seconde par seconde et l’historique des étalonnages s’affichent, sans que le fichier quitte votre ordinateur.</p>
+    <ul class="badges">
+      <li>Appareils G1, intelligent V1 et V2</li>
+      <li>Conduite sans carte</li>
+      <li>Vitesse détaillée</li>
+      <li>Export Excel</li>
+    </ul>
+  </section>
+  <div class="wrap">
+    <VuReader />
+    <section class="section two-col">
+      <div>
+        <h2>Ce que vous voyez</h2>
+        <ul>
+          <li><strong>Le véhicule</strong> : immatriculation, VIN, génération de l’appareil, période disponible, cartes insérées au moment du téléchargement.</li>
+          <li><strong>Chaque journée</strong> sur deux frises (conducteur et deuxième conducteur), avec les cartes insérées et leurs horaires.</li>
+          <li><strong>Les conducteurs</strong> : chaque insertion de carte, avec kilométrage et distance parcourue.</li>
+          <li><strong>La vitesse</strong> seconde par seconde sur les dernières 24 heures de conduite, et les excès de vitesse.</li>
+          <li><strong>Les événements</strong>, défauts, réglages d’heure, contrôles, téléchargements et verrous d’entreprise.</li>
+          <li><strong>Les étalonnages</strong> et la date de la prochaine inspection périodique.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Les points d’attention</h2>
+        <p>Dès la lecture, l’outil signale ce qu’un contrôleur regarderait en premier :</p>
+        <ul>
+          <li>la <strong>conduite sans carte</strong>, jour par jour ;</li>
+          <li>les événements sensibles (insertion pendant la conduite, atteinte à la sécurité) ;</li>
+          <li>les <strong>excès de vitesse</strong> ;</li>
+          <li>une <strong>inspection périodique</strong> dépassée ou proche ;</li>
+          <li>l’absence de verrou d’entreprise, et un téléchargement trop ancien.</li>
+        </ul>
+        <p>Le contenu du fichier est expliqué dans <a href={href('/guides/fichier-ddd-vehicule-unite-embarquee/')}>le fichier DDD du véhicule</a>.</p>
+      </div>
+    </section>
+    <Faq items={faq} />
+    <section class="section"><h2>Les autres outils</h2><ToolCards exclude="/lire-fichier-ddd-vehicule/" /></section>
+  </div>
+</Base>

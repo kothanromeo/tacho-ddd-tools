@@ -102,7 +102,7 @@ interface Ef {
 export function splitEfs(buf: Uint8Array): { g1: Map<number, Ef>; g2: Map<number, Ef>; signatures: number } {
   if (buf.length < 5) throw new DddError('Fichier vide ou trop court.');
   if (buf[0] === 0x76) {
-    throw new DddError('Ce fichier provient de la mémoire d’un véhicule (unité embarquée), pas d’une carte conducteur. Seuls les fichiers de carte conducteur sont lus pour l’instant.');
+    throw new DddError('Ce fichier provient de la mémoire d’un véhicule (unité embarquée), pas d’une carte conducteur : ouvrez-le avec le lecteur de fichiers véhicule.');
   }
   const g1 = new Map<number, Ef>();
   const g2 = new Map<number, Ef>();

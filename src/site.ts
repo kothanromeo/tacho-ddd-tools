@@ -28,7 +28,8 @@ export function href(path: string): string {
 }
 
 export const NAV = [
-  { href: '/', label: 'Lire un fichier DDD' },
+  { href: '/', label: 'Carte conducteur' },
+  { href: '/lire-fichier-ddd-vehicule/', label: 'Véhicule' },
   { href: '/calcul-temps-de-conduite/', label: 'Temps de conduite' },
   { href: '/guides/', label: 'Guides' },
 ];

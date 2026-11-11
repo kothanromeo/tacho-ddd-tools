@@ -6,6 +6,7 @@ interface Props {
 const { exclude } = Astro.props;
 const tools = [
   { path: '/', title: 'Lire un fichier DDD', text: 'Les activités de la carte conducteur jour par jour, les véhicules, les lieux et les infractions probables.' },
+  { path: '/lire-fichier-ddd-vehicule/', title: 'Lire un fichier véhicule', text: 'La mémoire du chronotachygraphe : conducteurs, conduite sans carte, excès de vitesse, étalonnages.' },
   { path: '/calcul-temps-de-conduite/', title: 'Temps de conduite restant', text: 'Combien de temps pouvez-vous encore conduire avant la pause, aujourd’hui et cette semaine ?' },
   { path: '/guides/temps-de-conduite-repos-reglementation/', title: 'Les règles en clair', text: '9 h, 4 h 30, 11 h, 45 h, 56 h, 90 h : les temps de conduite et de repos expliqués avec des exemples.' },
 ].filter((t) => t.path !== exclude);

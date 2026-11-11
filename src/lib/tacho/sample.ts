@@ -6,7 +6,7 @@
 
 type Act = 'R' | 'A' | 'W' | 'D';
 
-class Writer {
+export class Writer {
   private parts: number[] = [];
   u8(v: number) { this.parts.push(v & 255); return this; }
   u16(v: number) { return this.u8(v >> 8).u8(v); }

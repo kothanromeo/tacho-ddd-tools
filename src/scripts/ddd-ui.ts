@@ -181,6 +181,10 @@ export function mountDdd(root: HTMLElement) {
     out.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => {
       try {
+        if (bytes[0] === 0x76) {
+          out.innerHTML = `<div class="banner warn"><div><strong>C’est un fichier de véhicule</strong><p>Ce fichier vient de la mémoire d’un chronotachygraphe (unité embarquée), pas d’une carte conducteur. <a href="${import.meta.env.BASE_URL}lire-fichier-ddd-vehicule/">Ouvrez-le avec le lecteur de fichiers véhicule</a>.</p></div></div>`;
+          return;
+        }
         const card = readCard(bytes);
         const segs = normalize(cardSegments(card));
         st = { card, segs, tz, a: analyze(segs, tz), fileName, tab: 'constats' };

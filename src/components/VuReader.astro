@@ -1,0 +1,22 @@
+---
+---
+<section data-vu aria-label="Lecteur de fichier de véhicule">
+  <div class="drop" data-drop>
+    <p class="big">Déposez le fichier téléchargé du véhicule (.DDD)</p>
+    <p>Mémoire du chronotachygraphe (unité embarquée), aussi .V1B ou .ESM. Appareils de 1re et de 2e génération. Glissez-déposez le fichier ici, ou</p>
+    <div class="btn-row" style="justify-content:center">
+      <label class="btn" style="margin:0;color:var(--accent-ink)">
+        Choisir un fichier
+        <input type="file" accept=".ddd,.DDD,.v1b,.V1B,.esm,.ESM,.tgd,.TGD,application/octet-stream" data-file />
+      </label>
+      <button type="button" class="btn secondary" data-sample>Essayer avec un véhicule fictif</button>
+    </div>
+    <p class="privacy">🔒 Le fichier est lu dans votre navigateur. Ni les noms des conducteurs ni les trajets ne sont envoyés sur internet.</p>
+  </div>
+  <div class="result" data-result hidden aria-live="polite"></div>
+</section>
+
+<script>
+  import { mountVu } from '../scripts/vu-ui';
+  document.querySelectorAll<HTMLElement>('[data-vu]').forEach(mountVu);
+</script>
