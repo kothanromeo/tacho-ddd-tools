@@ -15,6 +15,7 @@ export const SITE = {
     { name: 'FEC Tools', url: 'https://fec-tools.kothanromeo.dev/', text: 'Lire et vérifier un Fichier des Écritures Comptables' },
     { name: 'Vérif Tiers', url: 'https://verif-tiers-tools.kothanromeo.dev/', text: 'Vérifier les SIREN, numéros de TVA et IBAN d’un fichier clients' },
     { name: 'SEPA XML Tools', url: 'https://sepa-xml-tools.kothanromeo.dev/', text: 'Créer des fichiers de virements et prélèvements SEPA depuis Excel' },
+    { name: 'Broderie Tools', url: 'https://broderie-tools.kothanromeo.dev/', text: 'Ouvrir et convertir les fichiers de broderie (PES, DST, JEF)' },
   ],
   locale: 'fr_FR',
   lang: 'fr',
