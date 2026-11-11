@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { breadcrumbSchema, href } from '../../site';
+
+const posts = (await getCollection('guides')).sort((a, b) => +b.data.published - +a.data.published);
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Guides', path: '/guides/' },
+];
+const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base
+  keywords={["chronotachygraphe", "fichier ddd", "carte conducteur", "temps de conduite", "temps de repos", "réglementation 561/2006", "téléchargement carte conducteur", "tachygraphe intelligent"]}
+  title="Guides : chronotachygraphe, carte conducteur et temps de conduite"
+  description="Fichier DDD de la carte conducteur, règles de temps de conduite et de repos, téléchargement tous les 28 jours, tachygraphe intelligent V2 : des guides concrets."
+  schema={[breadcrumbSchema(Astro.site!, crumbs)]}
+>
+  <Crumbs items={crumbs} />
+  <section class="hero wrap narrow">
+    <h1>Guides chronotachygraphe et temps de conduite</h1>
+    <p class="lead">
+      Des explications concrètes sur le format et sur la réforme, écrites par un développeur qui a passé du temps dans les spécifications
+      pour que vous n’ayez pas à le faire.
+    </p>
+  </section>
+  <div class="wrap narrow">
+    <ul class="post-list">
+      {posts.map((p) => (
+        <li class="card">
+          <a href={href(`/guides/${p.id}/`)}>
+            <h2>{p.data.title}</h2>
+            <p>{p.data.description}</p>
+            <time datetime={p.data.published.toISOString()}>{fmt(p.data.published)}</time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>

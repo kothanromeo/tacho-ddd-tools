@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import DrivingCalc from '../../components/DrivingCalc.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Faq from '../../components/Faq.astro';
+import ToolCards from '../../components/ToolCards.astro';
+import { breadcrumbSchema, faqSchema, href, toolSchema, type FaqItem } from '../../site';
+
+const site = Astro.site!;
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'Calcul du temps de conduite restant', path: '/calcul-temps-de-conduite/' },
+];
+const faq: FaqItem[] = [
+  {
+    q: 'Combien d’heures un chauffeur poids lourd peut-il conduire par jour ?',
+    a: '<p>9 heures entre deux repos journaliers, 10 heures deux fois par semaine au plus. Avec une pause de 45 minutes au plus tard après 4 h 30 de conduite.</p>',
+  },
+  {
+    q: 'Le temps de travail compte-t-il dans les 4 h 30 ?',
+    a: '<p>Non, seuls les temps de conduite s’additionnent. Mais le travail (chargement, attente active) ne compte pas comme une pause : il ne remet pas le compteur à zéro.</p>',
+  },
+  {
+    q: 'Combien d’heures par semaine ?',
+    a: '<p>56 heures de conduite au plus du lundi au dimanche, et 90 heures sur deux semaines consécutives. Après une semaine à 56 h, il reste donc 34 h pour la suivante.</p>',
+  },
+];
+---
+<Base
+  title="Calcul du temps de conduite restant (poids lourd, chauffeur)"
+  description="Combien de temps pouvez-vous encore conduire ? Avant la pause de 45 min, dans la journée (9 h ou 10 h), la semaine (56 h) et sur deux semaines (90 h). Calcul immédiat."
+  keywords={["calcul temps de conduite", "temps de conduite restant", "calculateur temps de conduite poids lourd", "temps de conduite chauffeur routier", "4h30 de conduite", "conduite 9h 10h", "56 heures de conduite", "90 heures deux semaines", "temps de conduite autocar", "calcul amplitude chauffeur", "temps de repos chauffeur calcul"]}
+  schema={[toolSchema(site, { name: 'Calculateur de temps de conduite restant', path: '/calcul-temps-de-conduite/', description: 'Calcule le temps de conduite encore possible selon le règlement 561/2006.' }), breadcrumbSchema(site, crumbs), faqSchema(faq)]}
+>
+  <Crumbs items={crumbs} />
+  <section class="hero wrap">
+    <h1>Combien de temps puis-je encore conduire ?</h1>
+    <p class="lead">Entrez vos compteurs du jour et de la semaine : le calcul indique la limite la plus proche, avant la pause, dans la journée, dans la semaine et sur deux semaines.</p>
+  </section>
+  <div class="wrap">
+    <DrivingCalc />
+    <article class="prose narrow section">
+      <h2>Les quatre limites qui comptent</h2>
+      <ol>
+        <li><strong>La pause</strong> : 45 minutes au plus tard après 4 h 30 de conduite, éventuellement en deux temps (15 min puis 30 min).</li>
+        <li><strong>La journée</strong> : 9 heures de conduite, 10 heures deux fois par semaine.</li>
+        <li><strong>La semaine</strong> : 56 heures, du lundi 00:00 au dimanche 24:00.</li>
+        <li><strong>Deux semaines</strong> : 90 heures cumulées.</li>
+      </ol>
+      <p>
+        S’y ajoute le <strong>repos journalier</strong>, qui doit tenir dans les 24 heures suivant la fin du précédent : en commençant à 6 h,
+        il faut s’arrêter à 19 h pour un repos de 11 heures, ou à 21 h pour un repos réduit de 9 heures.
+      </p>
+      <p>
+        Toutes les règles, avec leurs exceptions, sont dans le guide <a href={href('/guides/temps-de-conduite-repos-reglementation/')}>temps de conduite et de repos</a>.
+        Pour vérifier les semaines passées, déposez le fichier de votre carte dans le <a href={href('/')}>lecteur de fichiers DDD</a>.
+      </p>
+    </article>
+    <Faq items={faq} />
+    <section class="section"><h2>Les autres outils</h2><ToolCards exclude="/calcul-temps-de-conduite/" /></section>
+  </div>
+</Base>

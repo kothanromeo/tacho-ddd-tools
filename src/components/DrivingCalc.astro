@@ -1,0 +1,25 @@
+---
+---
+<section class="calc" data-calc aria-label="Calculateur de temps de conduite restant">
+  <div class="qr-grid">
+    <form class="card" data-calc-form onsubmit="return false">
+      <p class="hint" style="margin-top:0">Saisissez les durées en heures et minutes (ex. 3:45 ou 3h45). Votre chronotachygraphe affiche la plupart de ces compteurs.</p>
+      <div class="fields">
+        <div><label for="c-break">Conduite depuis la dernière pause</label><input id="c-break" name="sinceBreak" inputmode="numeric" placeholder="ex. 2:30" /></div>
+        <div><label for="c-today">Conduite depuis le dernier repos journalier</label><input id="c-today" name="today" inputmode="numeric" placeholder="ex. 6:10" /></div>
+        <div><label for="c-week">Conduite cette semaine (depuis lundi)</label><input id="c-week" name="week" inputmode="numeric" placeholder="ex. 31:20" /></div>
+        <div><label for="c-last">Conduite la semaine dernière</label><input id="c-last" name="lastWeek" inputmode="numeric" placeholder="ex. 44:00" /></div>
+        <div><label for="c-ext">Journées déjà prolongées à 10 h cette semaine</label><select id="c-ext" name="extensionsUsed"><option>0</option><option>1</option><option>2</option></select></div>
+        <div><label for="c-start">Heure de début de la journée <span class="hint">(facultatif)</span></label><input id="c-start" name="start" type="time" /></div>
+        <div><label for="c-red">Repos réduits depuis le dernier repos hebdo.</label><select id="c-red" name="reducedUsed"><option>0</option><option>1</option><option>2</option><option>3</option></select></div>
+        <div class="wide"><label class="choice"><input type="checkbox" name="split15" /> J’ai déjà pris une pause de 15 min depuis ma dernière pause complète</label></div>
+      </div>
+    </form>
+    <div class="card calc-out" data-calc-out aria-live="polite"></div>
+  </div>
+</section>
+
+<script>
+  import { mountCalc } from '../scripts/calc-ui';
+  document.querySelectorAll<HTMLElement>('[data-calc]').forEach(mountCalc);
+</script>

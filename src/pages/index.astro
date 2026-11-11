@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import DddReader from '../components/DddReader.astro';
+import ToolCards from '../components/ToolCards.astro';
+import Faq from '../components/Faq.astro';
+import { faqSchema, href, toolSchema, type FaqItem } from '../site';
+
+const site = Astro.site!;
+const posts = (await getCollection('guides')).sort((a, b) => +b.data.published - +a.data.published);
+
+const faq: FaqItem[] = [
+  {
+    q: 'Comment ouvrir un fichier DDD ?',
+    a: '<p>Un fichier DDD est binaire : il ne s’ouvre ni dans Excel ni dans un éditeur de texte. Déposez-le ici : identité de la carte, activités jour par jour, véhicules, lieux, événements et temps de conduite s’affichent, et vous pouvez tout exporter vers Excel. Les extensions .C1B, .TGD et .ESM désignent le même format.</p>',
+  },
+  {
+    q: 'Le fichier est-il envoyé sur un serveur ?',
+    a: '<p>Non. Le fichier est lu par votre navigateur, sur votre ordinateur. Le nom du conducteur, ses activités et ses déplacements ne quittent jamais votre appareil, ce qui est important pour des données personnelles de cette nature.</p>',
+  },
+  {
+    q: 'Les infractions affichées sont-elles certaines ?',
+    a: '<p>Ce sont des infractions probables, calculées selon le règlement européen 561/2006. L’outil ne connaît pas les situations particulières : traversée en ferry ou en train, dérogations nationales, circonstances exceptionnelles, activité hors champ. Il ne remplace pas un logiciel d’analyse agréé ni l’avis d’un spécialiste.</p>',
+  },
+  {
+    q: 'Pourquoi les heures sont-elles décalées ?',
+    a: '<p>Le chronotachygraphe enregistre tout en temps universel (UTC). L’outil affiche par défaut l’heure de Paris (UTC+1 en hiver, UTC+2 en été) ; vous pouvez revenir à l’UTC avec le sélecteur « Heures affichées ».</p>',
+  },
+  {
+    q: 'Et les fichiers du véhicule (unité embarquée) ?',
+    a: '<p>Ils ont une structure différente et ne sont pas encore pris en charge. L’outil lit les fichiers de carte conducteur, de première et de deuxième génération, y compris les cartes intelligentes V2.</p>',
+  },
+];
+---
+<Base
+  title="Lire un fichier DDD de carte conducteur en ligne (gratuit)"
+  description="Ouvrez le fichier .DDD d’une carte conducteur : activités jour par jour, temps de conduite et de repos, infractions probables, véhicules, export Excel. Sans rien installer."
+  keywords={["lire fichier ddd", "ouvrir fichier ddd", "lecteur fichier ddd", "fichier ddd carte conducteur", "lire carte conducteur", "lecture carte chronotachygraphe", "logiciel chronotachygraphe gratuit", "analyse carte conducteur", "infractions chronotachygraphe", "fichier c1b", "fichier tgd", "temps de conduite carte conducteur", "téléchargement carte conducteur", "ddd en excel"]}
+  schema={[toolSchema(site, { name: 'Lecteur de fichiers DDD de carte conducteur', path: '/', description: 'Lit un fichier de carte conducteur de chronotachygraphe (.DDD) et contrôle les temps de conduite et de repos.' }), faqSchema(faq)]}
+>
+  <section class="hero wrap">
+    <h1>Lire un fichier DDD de carte conducteur</h1>
+    <p class="lead">
+      Déposez le fichier téléchargé de la carte : les activités s’affichent jour par jour, les temps de conduite et de repos sont contrôlés
+      et les infractions probables signalées. Gratuit, sans inscription, et le fichier ne quitte pas votre ordinateur.
+    </p>
+    <ul class="badges">
+      <li>Cartes 1re et 2e génération</li>
+      <li>Tachygraphe intelligent V2</li>
+      <li>Règlement 561/2006</li>
+      <li>Export Excel</li>
+    </ul>
+  </section>
+
+  <div class="wrap">
+    <DddReader />
+
+    <section class="section two-col">
+      <div>
+        <h2>Ce que vous voyez</h2>
+        <ul>
+          <li><strong>L’identité de la carte</strong> : conducteur, numéro, pays, génération, date d’expiration, dernier téléchargement.</li>
+          <li><strong>Chaque journée</strong> sur une frise de 24 heures : conduite, travail, disponibilité, repos, périodes sans carte et saisies manuelles.</li>
+          <li><strong>Les totaux</strong> par jour et par semaine, l’amplitude et la distance parcourue.</li>
+          <li><strong>Les véhicules</strong> utilisés, avec kilométrage, les <strong>lieux</strong> de début et de fin de journée, les <strong>événements</strong>, défauts et contrôles enregistrés.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Ce qui est contrôlé</h2>
+        <ul>
+          <li>La <strong>pause</strong> de 45 min (ou 15 + 30) après 4 h 30 de conduite.</li>
+          <li>La <strong>conduite journalière</strong> : 9 h, 10 h deux fois par semaine.</li>
+          <li>Le <strong>repos journalier</strong> dans chaque période de 24 h : 11 h, 3 h + 9 h, ou 9 h réduit trois fois au plus.</li>
+          <li>La <strong>conduite hebdomadaire</strong> (56 h) et sur deux semaines (90 h).</li>
+          <li>Le <strong>repos hebdomadaire</strong> au plus tard après six périodes de 24 h.</li>
+        </ul>
+        <p>Les règles sont détaillées dans <a href={href('/guides/temps-de-conduite-repos-reglementation/')}>temps de conduite et de repos : les règles</a>.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Les autres outils</h2>
+      <ToolCards exclude="/" />
+    </section>
+
+    <section class="section">
+      <h2>Les guides</h2>
+      <ul class="post-list">
+        {posts.map((p) => (
+          <li class="card"><a href={href(`/guides/${p.id}/`)}><h3>{p.data.title}</h3><p>{p.data.description}</p></a></li>
+        ))}
+      </ul>
+    </section>
+
+    <Faq items={faq} />
+  </div>
+</Base>

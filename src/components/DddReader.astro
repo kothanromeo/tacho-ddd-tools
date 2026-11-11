@@ -1,0 +1,22 @@
+---
+---
+<section data-ddd aria-label="Lecteur de fichier de carte conducteur">
+  <div class="drop" data-drop>
+    <p class="big">Déposez le fichier de la carte conducteur (.DDD)</p>
+    <p>Aussi .C1B, .TGD ou .ESM selon le logiciel de téléchargement. Cartes de 1re et de 2e génération. Glissez-déposez le fichier ici, ou</p>
+    <div class="btn-row" style="justify-content:center">
+      <label class="btn" style="margin:0;color:var(--accent-ink)">
+        Choisir un fichier
+        <input type="file" accept=".ddd,.DDD,.c1b,.C1B,.tgd,.TGD,.esm,.ESM,.v1b,application/octet-stream" data-file />
+      </label>
+      <button type="button" class="btn secondary" data-sample>Essayer avec une carte fictive</button>
+    </div>
+    <p class="privacy">🔒 Le fichier est lu dans votre navigateur. Ni le nom du conducteur ni ses activités ne sont envoyés sur internet.</p>
+  </div>
+  <div class="result" data-result hidden aria-live="polite"></div>
+</section>
+
+<script>
+  import { mountDdd } from '../scripts/ddd-ui';
+  document.querySelectorAll<HTMLElement>('[data-ddd]').forEach(mountDdd);
+</script>

@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { SITE, breadcrumbSchema } from '../../site';
+
+const crumbs = [
+  { name: 'Accueil', path: '/' },
+  { name: 'À propos', path: '/a-propos/' },
+];
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.author,
+  url: SITE.authorUrl,
+  sameAs: [SITE.linkedin, SITE.instagram, SITE.portfolio, SITE.authorUrl],
+  jobTitle: 'Développeur',
+};
+---
+<Base
+  keywords={["tacho ddd tools", "roméo kothan", "lecteur ddd open source", "chronotachygraphe gratuit", "développeur"]}
+  title="À propos du projet"
+  description="Tacho DDD Tools est un projet open source de Roméo Kothan : un lecteur gratuit de fichiers de carte conducteur et un calculateur de temps de conduite."
+  schema={[person, breadcrumbSchema(Astro.site!, crumbs)]}
+>
+  <Crumbs items={crumbs} />
+  <article class="wrap narrow prose" style="padding-top:1.5rem">
+    <h1>À propos</h1>
+    <p>
+      Je m’appelle {SITE.author}, je suis développeur. Pour lire la carte d’un conducteur, il faut d’ordinaire un logiciel payant,
+      ou confier le fichier à un service en ligne, alors qu’il contient le nom, les horaires et les déplacements d’une personne.
+      J’ai voulu un lecteur gratuit qui fonctionne entièrement sur l’ordinateur de l’utilisateur.
+    </p>
+    <h2>Les principes</h2>
+    <ul>
+      <li><strong>Le fichier reste chez vous.</strong> Il est décodé par votre navigateur ; rien n’est envoyé sur internet.</li>
+      <li><strong>Un format respecté à la lettre.</strong> Le décodage suit les annexes techniques des règlements européens (annexe 1B pour la première génération, annexe 1C pour les tachygraphes intelligents), et il est testé sur des cartes réelles anonymisées des deux générations.</li>
+      <li><strong>Une analyse prudente.</strong> Les constats sont présentés comme des infractions probables : seul un examen complet, avec le contexte, permet de conclure.</li>
+      <li><strong>Le code est public</strong>, sous licence MIT.</li>
+    </ul>
+    <h2>Sous le capot</h2>
+    <p>
+      Astro pour le site, TypeScript sans framework côté client. Le fichier est découpé en fichiers élémentaires, le tampon circulaire
+      des activités est parcouru du jour le plus récent au plus ancien, puis la chronologie est analysée minute par minute.
+      L’export Excel est écrit directement au format Office Open XML.
+    </p>
+    <h2>Contribuer</h2>
+    <p>Un fichier mal lu, une règle à affiner ? Ouvrez une <a href={`${SITE.repo}/issues`} rel="noopener">issue sur GitHub</a> (sans joindre de vraie carte), ou retrouvez-moi sur <a href={SITE.linkedin} rel="me noopener">LinkedIn</a>.</p>
+  </article>
+</Base>
