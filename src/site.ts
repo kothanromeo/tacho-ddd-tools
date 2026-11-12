@@ -16,6 +16,8 @@ export const SITE = {
     { name: 'Vérif Tiers', url: 'https://verif-tiers-tools.kothanromeo.dev/', text: 'Vérifier les SIREN, numéros de TVA et IBAN d’un fichier clients' },
     { name: 'SEPA XML Tools', url: 'https://sepa-xml-tools.kothanromeo.dev/', text: 'Créer des fichiers de virements et prélèvements SEPA depuis Excel' },
     { name: 'Broderie Tools', url: 'https://broderie-tools.kothanromeo.dev/', text: 'Ouvrir et convertir les fichiers de broderie (PES, DST, JEF)' },
+    { name: 'DSN Tools', url: 'https://dsn-tools.kothanromeo.dev/', text: 'Lire et vérifier un fichier DSN (salariés, paie, cotisations)' },
+    { name: 'PES V2 Tools', url: 'https://pes-v2-tools.kothanromeo.dev/', text: 'Lire un flux PES V2 et comprendre un acquittement Hélios' },
   ],
   locale: 'fr_FR',
   lang: 'fr',
